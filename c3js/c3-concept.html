@@ -1,0 +1,110 @@
+<!doctype html>
+<head>
+	<title>test</title>
+	<!-- Load c3.css -->
+	<link href="c3.min.css" rel="stylesheet" type="text/css">
+
+	<!-- Load d3.js and c3.js -->
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="c3.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.3.min.js" charset="utf-8"></script>
+
+</head>
+
+<body>
+	<div id="chart"></div>
+	<p>Try clicking.</p>
+</body>
+
+<script>
+
+
+$(document).ready(function(){
+	var chart = c3.generate({
+	    bindto: '#chart',
+	    size: {
+  			height: 400,
+  			width: 8002
+			},
+	    data: {
+	    	x : 'Player',
+			columns: [
+				['Player','True Shooting %','3P Attempt Rate','Free Throw Rate'],//'TRB%'
+				["Stephen Curry",.631,.478,.259],	//11.3
+	      	],
+	    	type: 'bar',
+
+	    },
+	    axis: {
+	     	rotated: true,
+	     	x: {
+        	type: 'category' 
+       		},
+      	},
+      	zoom: {
+        	enabled: true
+    	}
+	});
+
+	chart.data.colors({
+ 			"Stephen Curry": '#04529C'
+	});
+
+		setTimeout(function () {
+			chart.load({
+			  columns: [
+			    ["Draymond Green",.541,.436,.266]
+			  ],
+			})
+		}, 800);
+
+		chart.data.colors({
+	 			"Draymond Green": '#FFCC33'
+		});
+
+	$(document).on("click",function(){
+
+		setTimeout(function () {
+	    	chart.groups([['Stephen Curry', 'Draymond Green']])
+		}, 400);
+
+		setTimeout(function(){
+			chart.load({
+			  columns: [
+			 	['Player','Player Efficiency Rating','True Shooting %','3P Attempt Rate','Free Throw Rate','Off Reboud %','Def Rebound %', 'True Rebound %'],
+			 	["Stephen Curry",27.6,.631,.478,.259,2.4,11.3,7.0],
+			   	["Draymond Green",16.3,.541,.436,.266,4.8,21.9,13.7]
+			  ],
+			})
+		},1000)
+
+	})
+
+})
+
+	// setTimeout(function () {
+	// 	chart.load({
+	// 	  columns: [
+	// 	    ["Draymond Green",16.3],
+	// 	  ],
+	// 	  // unload: ['data2', 'data3']
+	// 	})
+	// }, 2400);
+
+// 	setTimeout(function(){
+// chart.load({
+//   columns: [
+//     ['data1, 100, 200, 150,],
+//   ],
+//   unload: ['data2', 'data3']
+// });
+// 	}, 1200);
+
+// 		setTimeout(function(){
+// 		chart.defocus('Stephen Curry');
+// 	}, 1200);
+
+	
+
+
+</script>
