@@ -1,0 +1,114 @@
+<html>
+<head>
+  <title>Canvas</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <canvas id="matts_cats" class="can" width="300" height="900"></canvas>
+
+  <div class="instr">
+
+    <p>//maybe we can make out own version of flappy bird!</p>
+    <p>// first get grid drawn on screen</p>
+    <p>// second make grid move on button</p>
+    <p>// third add a character (a simple circle)</p>
+    <p>// then give the character the ability to move up and down the </p>canvas
+    <p>//create obstacles that move with the canvas and ar generated </p>randomly
+    <p>//make the obstacles end the game if they touch the character</p>
+
+
+
+  </div>
+  <button onclick="draw_me()">draw</button>
+  <button onclick="reset()">reset</button>
+  <button onclick="start_scroll()">start!</button>
+  <button onclick="start_generating_obstacles()">start obstacle course!</button>
+</body>
+
+<script>
+
+// var b_context=document.getElementById("matts_cats").getContext("2d");
+// var b=document.getElementById("matts_cats");
+
+//vertical lines
+// for (var x = 0.5; x < 1000; x += 10) {
+//   b_context.moveTo(x, 0);
+//   b_context.lineTo(x, 375);
+// }
+
+//horizontal lines
+// for (var y = 0; y < 900; y += 100) {
+//   b_context.moveTo(0, y);
+//   b_context.lineTo(5000, y);
+// }
+
+// b_context.strokeStyle = "black";
+// b_context.stroke();
+
+function draw_me(){
+  b_context.fillRect(50,40,40,40);
+}
+
+function reset(){
+  document.getElementById("matts_cats").width=300
+}
+
+function start_generating_obstacles(){
+  setInterval(generate_obstacles,4000)
+  // generate_obstacles()
+}
+
+
+
+function generate_obstacles(){
+ var frame=0
+ if(frame<1000){
+    random_position_start = Math.floor(Math.random()*300)  //width of the canvas is hardcoded into this
+    random_width = Math.floor(Math.random()*300)  //width of the canvas is hardcoded into this
+    random_radius = 5+Math.floor(Math.random()*100)  //width of the canvas is hardcoded into this
+    random_position_end = random_position_start+(10+Math.floor(Math.random()*150)) //this 90 represents how large the obstacle can be
+  scroll()
+  function scroll(){
+    reset()
+      // document.getElementById("matts_cats").getContext("2d").fillRect(random_position_start, frame, random_width, random_height)
+      document.getElementById("matts_cats").getContext("2d").arc(random_position_start,frame,random_radius,0,2 * Math.PI, false)
+      frame+=2
+      document.getElementById("matts_cats").getContext("2d").strokeStyle = "black";
+      document.getElementById("matts_cats").getContext("2d").stroke();
+      setTimeout(scroll,10)
+  }
+}
+}
+
+
+
+
+function start_scroll(){
+  // setInterval(scroll_animation, 1000)
+  scroll_animation()
+}
+
+function scroll_animation(){
+  var frame=0
+  if(frame<1000){
+    scroll()
+    function scroll(){
+      reset()
+      for (var y = frame; y < 900; y += 200){
+        document.getElementById("matts_cats").getContext("2d").moveTo(0, y);
+        document.getElementById("matts_cats").getContext("2d").lineTo(5000, y);
+      }
+      frame+=1
+      document.getElementById("matts_cats").getContext("2d").strokeStyle = "black";
+      document.getElementById("matts_cats").getContext("2d").stroke();
+      setTimeout(scroll,10)
+    }
+  }
+}
+
+</script>
+
+</html>

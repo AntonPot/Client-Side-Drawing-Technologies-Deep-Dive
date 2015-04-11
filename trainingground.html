@@ -1,0 +1,188 @@
+ <html>
+ <head>
+
+
+
+ </head>
+
+
+ <body>
+  <div id="word_board">
+   <div class="letter" id="11">j</div>
+   <div class="letter" id="12">s</div>
+   <div class="letter" id="13">q</div>
+   <div class="letter" id="14">h</div>
+   <div class="letter" id="15">m</div>
+   <div class="letter" id="16">n</div>
+
+   <button id="button" onclick="tnt(['11','12','13','14','15','16'])">explosion</button>
+   <button id="button" onclick="blow_up('11')">explode first block</button>
+   <button id="button" onclick="shake_line(['11','12','13','14','15','16'])">wave!!</button>
+   <button id="button" onclick="shake('11')">wobble first block</button>
+
+ </div>
+</body>
+<script type="text/javascript">
+
+
+function tnt(id_arr){
+  var inc=0
+  snake()
+  function snake(){
+    if(inc<id_arr.length)
+    {
+      blow_up(id_arr[inc])
+      // console.log(id_arr[inc])
+      setTimeout(snake,30)
+      inc+=1
+    }
+  }
+}
+
+
+
+function blow_up(id){
+  var incre=0
+  move()
+  function move(){
+    if(incre<=30)
+    {
+      if(incre==30)
+      {
+        document.getElementById(id).style.left="0%"
+        document.getElementById(id).style.top="0%"
+        document.getElementById(id).className="letter"
+
+      }
+      else{
+        if(id%2==0)
+        {
+          document.getElementById(id).style.left=incre+"%"
+          document.getElementById(id).style.top=incre+"%"
+          document.getElementById(id).className="blow_flying_right"
+        }
+        else
+        {
+          document.getElementById(id).style.left="-"+incre+"%"
+          document.getElementById(id).style.top=incre+"%"
+          document.getElementById(id).className="blow_flying_left"
+        }
+      }
+
+      incre+=1
+      setTimeout(move, 30)
+    }
+  }
+}
+
+
+
+function shake_line(array){
+  var inc=0
+  wave()
+  function wave(){
+    //call our shake function on the current inc postion in the array
+    shake(array[inc])
+    //increment the inc by 1
+    inc+=1
+    //call our recursive step
+    setTimeout(wave,20)
+  }
+}
+
+function shake(id){
+  var incre=0
+  shakeme()
+  function shakeme(){
+    if(incre<10){
+      if (incre%2==0)
+      {
+        document.getElementById(id).style.top=incre+"%"
+      }
+      else
+      {
+        document.getElementById(id).style.top="-"+incre+"%"
+      }
+    }
+    else if (incre==10)
+    {
+      document.getElementById(id).style.top="0%"
+      document.getElementById(id).className="letter"
+    }
+    incre+=1
+    setTimeout(shakeme,20)
+  }
+}
+
+</script>
+
+
+
+<style>
+
+#word_board{
+  background-color:transparent;
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  height: 90%;
+  width: 70%;
+  margin: auto;
+  text-align: horizontal;
+  float: left;
+}
+
+.letter{
+  background-color: red;
+  position: relative;
+  background-color: red;
+  border-radius: 12px;
+  float: left;
+  height: 11%;
+  width: 11%;
+  margin: 2px;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+  font-family: Lucidatypewriter, monospace;
+  line-height: 1.2em;
+}
+
+.blow_flying_right{
+  position: relative;
+  top: -2%;
+  left: -2%;
+  background-color: #DF013A;
+  border-radius: 12px;
+  float: left;
+  height: 11%;
+  width: 11%;
+  margin: 2px;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+  font-family: Lucidatypewriter, monospace;
+  line-height: 1.2em;
+  /*transform: rotate(45deg);*/
+}
+
+.blow_flying_left{
+  position: relative;
+  top: -2%;
+  left: -2%;
+  background-color: #DF013A;
+  border-radius: 12px;
+  float: left;
+  height: 11%;
+  width: 11%;
+  margin: 2px;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+  font-family: Lucidatypewriter, monospace;
+  line-height: 1.2em;
+  /*transform: rotate(-45deg);*/
+}
+
+</style>
+</html>
