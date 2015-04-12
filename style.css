@@ -1,0 +1,30 @@
+
+
+.buttonone{
+  height: 20%;
+  background-color: transparent;
+  font-size: 20pt;
+}
+
+#example{
+  position: absolute;
+left: 30%;
+  font-size: 20pt;
+
+}
+
+.can{
+border-style: solid;
+}
+
+#matts_cats{
+  position: absolute;
+left: 30%;
+}
+
+.instr{
+  position: relative;
+  float: right;
+  right: 2%;
+  width: 30%;
+}
