@@ -3,10 +3,31 @@
   <title></title>
   <script src="https://cdn.rawgit.com/konvajs/konva/0.9.0/konva.min.js"></script>
   <script src="http://code.jquery.com/jquery-2.1.3.min.js" charset="utf-8"></script>
-
+  <style>
+    #gameControls{
+      /*display: inline-block;*/
+      margin-left: 900px;
+      /*margin-right: auto;*/
+    };
+    header {
+      display: inline;
+    }
+  </style>
 </head>
-<body style="background-image:url('http://juliewight.com/wp-content/uploads/2013/11/cool-water-backgrounds.jpg')">
-  <header> <h2 style="color:orange">Drag the Sea Lion</h2> </header>
+<body style="background-image:url('http://i.imgur.com/fwyWOga.jpg')">
+  <header> 
+    <h2 style="color:orange">Drag the Sea Lion</h2>
+    <div id="gameControls">
+      <div id="gameButtons">
+        <button onclick="gameStart()">Start Game</button>
+        <button onclick="gameReset()">Reset Game</button>
+      </div>
+      <div id="score">
+        <h3>SCORE: </h3>
+        <input type="number" id="timer"/>
+      </div>
+    </div>
+  </header>
   <div id="container"></div>
 </body>
 <script>
@@ -18,13 +39,14 @@ var stage = new Konva.Stage({
 
 var layer = new Konva.Layer();
 
+
 var seaLion = new Image();
 var masha = new Image();
 
 seaLion.src = "http://i.imgur.com/8zCHuXx.jpg";
 masha.src = "https://avatars2.githubusercontent.com/u/709758?v=3&s=400";
 
-var player = new Konva.Image({
+player = new Konva.Image({
   x: 0,
   y: stage.getHeight() / 2,
   image: seaLion,
@@ -59,11 +81,12 @@ var obstacleTwo = new Konva.Rect({
   x: stage.getWidth() / 4.9,
   y: stage.getHeight() / 2,
   image: masha,
-  width: 400,
+  width: 200,
   height: 400,
-  fill: "blue",
+  // fill: "blue",
   stroke: "black",
   strokeWidth: 5,
+  opacity: 0.5,
       // draggable: true,
     });
 
@@ -108,6 +131,7 @@ layer.add(player, obstacleOne, obstacleTwo, obstacleThree, obstacleFour, winFiel
 stage.add(layer);
 // stage.add(movinlayer);
 
+
 var amplitude = 300;
 var period = 2000;
 
@@ -128,8 +152,9 @@ var anim = new Konva.Animation(function(frame){
     obstacleTwo.setY(amplitude2 * Math.sin(frame.time * 2 * Math.PI / period2) + centerY);
     obstacleThree.setY(amplitude3 * Math.sin(frame.time * 2 * Math.PI / period3) + centerY);
     obstacleFour.setY(amplitude4 * Math.sin(frame.time * 2 * Math.PI / period4) + centerY);
-
 }, layer);
+
+
 
 function checkcontain(){
   if (contains(player, obstacleOne)){
@@ -145,14 +170,13 @@ function checkcontain(){
       youLose();
   }
   if (contains(player, winField)){
-    alert("WIN!!!!!!!!!!!!!");
-    anim.stop();
-    $('body').append("<h1 style='position: absolute; top: 5%; color: yellow;'>You Won!!!</h2>")
-    clearInterval(interval);
+    // alert("WIN!!!!!!!!!!!!!");
+    youWin();
+
   }
 }
 
-var interval = setInterval(checkcontain,1)
+
 
 
 // function youLose(){
@@ -161,13 +185,50 @@ var interval = setInterval(checkcontain,1)
 //   clearInterval(interval);
 // };
 
+var gameSet = null,
+    timer = 0;
+
+function youWin(){
+    anim.stop();
+    $('body').append("<h1 style='position: absolute; top: 5%; color: yellow;'>You Won!!!</h2>")
+    clearInterval(interval);
+}
+
 function youLose(){
   $('body').append("<h1 style='position: absolute; top: 5%; color:yellow;'>You Lost Sucker!!!</h2>");
   anim.stop();
-  clearInterval(interval);
+  clearInterval(gameSet);
+  gameSet = null;
+  // debugger;
+  player.draggable = false;
 };
 
-anim.start();
+// var interval = setInterval(checkcontain,1)
+// var interval 
+
+function gameStart(){
+  if (gameSet !== null) return;
+  gameSet = setInterval(function(){
+    timer = timer + .01;
+    var score = Math.round(timer)
+    $("#timer").val(score);
+    checkcontain();
+  }, 1);
+      anim.start();
+}
+
+function gameReset(){
+  timer = 0;
+  if (gameSet !== null) return;
+  gameSet = setInterval(function(){
+    timer = timer + 1;
+    $("#timer").val(timer);
+    checkcontain();
+  }, 1);
+      anim.start();
+      player.setX(0);
+}
+
 
 
 
