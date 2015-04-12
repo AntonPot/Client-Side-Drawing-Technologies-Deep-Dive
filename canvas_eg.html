@@ -2,11 +2,13 @@
 <head>
   <title>Canvas</title>
   <link rel="stylesheet" href="style.css">
+   <script src="https://cdn.rawgit.com/konvajs/konva/0.9.0/konva.min.js"></script>
 </head>
 
 <body>
-
+  <div id="container">
   <canvas id="matts_cats" class="can" width="300" height="900"></canvas>
+  </div>
 
   <div class="instr">
 
@@ -28,6 +30,30 @@
 </body>
 
 <script>
+
+    var stage = new Konva.Stage({
+      container: 'matts_cats',
+      width: 300,//window.innerWidth,
+      height: window.innerHeight,
+    });
+
+    var layer = new Konva.Layer();
+
+    var rect = new Konva.Rect({
+      x: stage.getWidth() / 2,
+      y: stage.getHeight() / 2,
+      width: 50,
+      height: 50,
+      fill: "red",
+      stroke: "black",
+      strokeWidth: 5,
+      draggable: true,
+    });
+
+    layer.add(rect);
+
+    stage.add(layer);
+
 
 // var b_context=document.getElementById("matts_cats").getContext("2d");
 // var b=document.getElementById("matts_cats");
