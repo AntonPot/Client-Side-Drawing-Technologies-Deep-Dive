@@ -1,0 +1,73 @@
+<!doctype html>
+<head>
+  <script src="two.min.js"></script>
+  <title>twojs example</title>
+<head>
+
+<body>
+  <div id="twojs-canvas"></div>
+</body>
+
+<style>
+  *{
+  	background-color: #A33643;
+  }
+</style>
+
+
+<script>
+
+//============================
+// Create the Canvas
+//============================
+
+var elem = document.getElementById('twojs-canvas');
+var two = new Two({ fullscreen: true }).appendTo(elem);
+
+//============================
+// Draw a Circle 
+//============================
+
+//makeCircle two.makeCircle(x, y, radius);
+var circle = two.makeCircle(300, 300, 100);
+
+circle.fill = '#822B66';
+circle.stroke = 'orangered'; 
+circle.linewidth = 5;
+
+
+//============================
+// Update the Canvas
+//============================
+
+two.update();
+
+//============================
+// This makes the Circle grow 1% every 60 seconds
+//============================
+
+// two.bind('update',function(frameCount){
+//   circle.scale +=0.01;
+// }).play(); 
+
+//============================
+// Rotate a square
+//============================
+
+// // makeRectangle two.makeRectangle(x, y, width, height);
+// var rect = two.makeRectangle(400,200,50,200);
+// rect.fill = 'yellow';
+// rect.stroke = 'orangered'; 
+// rect.linewidth = 5;
+
+// two.bind('update',function(frameCount){
+//   rect.rotation +=0.1;
+//   // rect.set(0,0);
+// }).play();
+
+
+
+
+
+
+</script>

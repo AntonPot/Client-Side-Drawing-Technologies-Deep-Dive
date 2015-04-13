@@ -1,0 +1,85 @@
+<!doctype html>
+<head>
+<script src="two.min.js"></script>
+<title>getting started demo</title>
+<head>
+
+<body>
+<div id="draw-animation"><div></div><div></div></div>
+</body>
+
+<style>
+*{
+	background-color: #A33643;
+}
+</style>
+
+
+<script>
+
+//circle and rectangle
+
+var elem = document.getElementById('draw-animation').children[0];
+var two = new Two({ fullscreen: true }).appendTo(elem);
+
+var circle = two.makeCircle(-70, 0, 400);
+var rect = two.makeRectangle(70, 0, 200, 200);
+circle.fill = '#822B66';
+rect.fill = '#83A136';
+
+var group = two.makeGroup(circle, rect);
+group.translation.set(two.width / 2, two.height / 2);
+group.scale = 0;
+group.noStroke();
+
+// makeEllipse two.makeEllipse(x, y, width, height);
+
+var ellipse = two.makeEllipse(700,100,75,50);
+ellipse.fill = '#DBF1A1';
+ellipse.linewidth = 7;
+
+// makeCurve two.makeCurve(x1, y1, x2, y2, xN, yN, open);
+var curvey = two.makeCurve(400,700,200,200,50,100,200,300,300,200,closed);
+curvey.fill="#41002C";
+curvey.noStroke;
+
+var rect2 = two.makeRectangle(700, 475, 300, 100 );
+rect2.fill = '#448F30';
+rect2.noStroke;
+
+// Bind a function to scale and rotate the group
+// to the animation loop.
+two.bind('update', function(frameCount) {
+  // This code is called everytime two.update() is called.
+  // Effectively 60 times per second.
+  if (group.scale > 0.9999) {
+    group.scale = group.rotation = 0;
+  }
+  var t = (1 - group.scale) * 0.125;
+  group.scale += t;
+  group.rotation += t * 4 * Math.PI;
+
+  if (rect2.scale > 2) {
+  	rect2.scale = 0;
+  }
+
+
+
+  rect2.rotation -= 0.01;
+  rect2.scale += t;
+
+
+  if (ellipse.scale > 0.9999) {
+    ellipse.scale = ellipse.rotation = 0;
+  }
+  var t = (1 - ellipse.scale) * 0.5;
+  ellipse.scale += t;
+  ellipse.rotation += t * 50 * Math.PI;
+}).play();  // Finally, start the animation loop
+
+
+
+
+
+
+</script>
