@@ -15,10 +15,7 @@ Team:
 - Matt Lao
 - Bao Tran
 
-
-C3
-----
-
+<a href="https://docs.google.com/presentation/d/1sjrycOtxQPzWvItZtivnWvjS47XOYsES5FDFlDDj6IA/edit?usp=sharing">Presentation slides</a>
 
 
 Konva JS
