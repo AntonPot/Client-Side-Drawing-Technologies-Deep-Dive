@@ -48,6 +48,6 @@ Shape   Group    Shape
          Shape
 ```
 
-
+<a href="https://github.com/baottran/Client-Side-Drawing-Technologies-Deep-Dive/blob/master/konvajs/sealion-game.html">Final Konva JS product</a>
 
 
